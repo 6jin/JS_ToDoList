@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>soJin-todo</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    </head>
+<body>
+    <div id="main-content" class="main-content">
+        <header>
+            <h1>Hello</h1>
+        </header>
+        <div class="inputBox shadow">
+            <input type="text" class="modelValue" id="model" placeholder="내용을 입력해주세요." /><span class="addContainer"><i class="fas fa-plus addBtn"></i></span>
+        </div>
+
+        <div class="sub-content">
+            <ul class="addList">
+
+            </ul>
+        </div>
+
+        <div class="clearAllContainer">
+            <span class="clearAllBtn">clear all</span>
+        </div>
+    </div>
+</body>
+<script>
+    function init() {
+        /**
+         target: .addBtn
+         type: click
+         listener: add()
+         */
+        document.querySelector('.addContainer').addEventListener('click', add)
+        /**
+         type: click
+         listener: remove()
+         */
+        document.querySelector('.clearAllBtn').addEventListener('click', removeAll)
+        /**
+         type: click
+         listener: checkToDo()
+         */
+        document.querySelector('.addList').addEventListener('click', clickedControl)
+    }
+
+    function add() {
+        // console.log('추가할거')
+        // console.log('event::::', e.target.classList[0])
+
+        let model = document.querySelector('.modelValue')
+        /**
+         * 1. 값의 유무
+         * 2. 객체의 존재 유무
+         * 3. 숫자 0
+         * */
+        // if (model.value) alert(`입력값은 ${model.value} 입니다.`)
+        // if (model.value) alert('입력값은' + model.value + '입니다.')
+        // else alert(`값 입력해주세요`)
+        if (model.value) {
+            let target = document.querySelector('.addList');
+            target.innerHTML += `<li class="shadow"><span class="checkBtn"><i class="fas fa-check"></i></span><span class="innerText">${model.value}</span><span class="removeBtn">삭제</span></li>`
+            model.value = ''
+        } else {
+            alert(`값 입력해주세요`)
+        }
+    }
+
+    function remove(e) {
+        console.log('삭제할거')
+        console.log('event::::', e.target)
+        console.log('event::::', e.target.parentElement)
+
+        let remove = e.target.parentElement;
+        let parent = remove.parentElement;
+        parent.removeChild(remove)
+        alert('삭제되엇슴니다')
+
+    }
+
+    function removeAll() {
+        let ul = document.querySelector('.addList')
+        ul.innerHTML = ''
+        alert('삭제 완료');
+
+    }
+
+    function clickedControl(e) {
+        console.log('e >>>>>>>>>>>>>', e.target.className)
+        if(e.target.className === 'fas fa-check') {
+            checkToDo(e);
+        } else if(e.target.className === 'removeBtn') {
+            remove(e);
+        }
+    }
+
+    function checkToDo(e) {
+        console.log('e>>>>>>>>>>>>>>>>', e.target.parentElement.className)
+        if(e.target.parentElement.className === 'checkBtn') e.target.parentElement.setAttribute('class', 'checkBtnCompleted')
+        else e.target.parentElement.setAttribute('class', 'checkBtn')
+    }
+
+    init()
+</script>
+<style>
+    h1 {
+        color: #2F3B52;
+        font-weight: 900;
+        margin: 2.5rem 0 1.5rem;
+    }
+    body {
+        text-align: center;
+        background-color: #F6F6F6;
+    }
+    input {
+        border-style: groove;
+        width: 50%;
+    }
+    button {
+        border-style: groove;
+    }
+    .shadow {
+        box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
+    }
+
+
+    input:focus {
+        outline: none;
+    }
+    .inputBox {
+        background-color: white;
+        height: 50px;
+        width: 50%;
+        margin: 0 auto;
+        line-height: 50px;
+        border-radius: 5px;
+    }
+    .inputBox input {
+        border-style: none;
+        font-size: 0.9rem;
+    }
+    .addContainer {
+        float: right;
+        background: linear-gradient(to right, #6478FB, #8763FB);
+        display: block;
+        width: 3rem;
+        border-radius: 0 5px 5px 0;
+    }
+    .addBtn {
+        color: white;
+        vertical-align: middle;
+    }
+
+
+    .clearAllContainer {
+        width: 8.5rem;
+        height: 50px;
+        line-height: 50px;
+        background-color: white;
+        border-radius: 5px;
+        margin: 0 auto;
+    }
+    .clearAllBtn {
+        margin-top: 10px;
+        color: #e20303;
+        display: block;
+    }
+
+
+    ul {
+        list-style-type: none;
+        width: 50%;
+        padding-left: 0px;
+        margin: 0 auto;
+        text-align: left;
+    }
+    li {
+        display: flex;
+        min-height: 50px;
+        height: 50px;
+        line-height: 50px;
+        margin: 0.5rem 0;
+        padding: 0 0.9rem;
+        background: white;
+        border-radius: 5px;
+    }
+    .checkBtn {
+        line-height: 45px;
+        color: limegreen;
+        margin-right: 5px;
+    }
+    .checkBtnCompleted {
+        color: #b3adad;
+    }
+    .textCompleted {
+        text-decoration: line-through;
+        color: #b3adad;
+    }
+    .removeBtn {
+        margin-left: auto;
+        color: #de4343;
+    }
+</style>
+</html>
