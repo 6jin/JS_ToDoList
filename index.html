@@ -27,7 +27,7 @@
     </div>
 </body>
 <script>
-    function init() {
+    const init = () => {
         /**
          target: .addBtn
          type: click
@@ -49,14 +49,7 @@
         $('.addList').click(clickedControl)
     }
 
-    function test() {
-        return console.log('테스트')
-    }
-
-    function add() {
-        // console.log('추가할거')
-        // console.log('event::::', e.target.classList[0])
-
+    const add = () => {
         let model = $('.modelValue')
         /**
          * 1. 값의 유무
@@ -75,38 +68,36 @@
         }
     }
 
-    function remove(e) {
-        console.log('삭제할거')
-        console.log('event::::', e.target)
-        console.log('event::::', e.target.parentElement)
-
+    const remove = (e) => {
         let remove = e.target.parentElement;
         let parent = remove.parentElement;
         parent.removeChild(remove)
         alert('삭제되엇슴니다')
-
     }
 
-    function removeAll() {
+    const removeAll = () => {
         let ul = $('.addList')
         ul.html('')
         alert('삭제 완료');
 
     }
 
-    function clickedControl(e) {
-        console.log('e >>>>>>>>>>>>>', e.target.className)
-        if(e.target.className === 'fas fa-check') {
+    const clickedControl = (e) => {
+        let className = e.target.className
+        return className === 'fas fa-check' ? checkToDo(e) : (className === 'removeBtn' ? remove(e) : '')
+
+        if(className === 'fas fa-check') {
             checkToDo(e);
-        } else if(e.target.className === 'removeBtn') {
+        } else if(className === 'removeBtn') {
             remove(e);
         }
     }
 
-    function checkToDo(e) {
-        console.log('e>>>>>>>>>>>>>>>>', e.target.parentElement.className)
-        if(e.target.parentElement.className === 'checkBtn') e.target.parentElement.setAttribute('class', 'checkBtnCompleted')
-        else e.target.parentElement.setAttribute('class', 'checkBtn')
+    const checkToDo = (e) => {
+        let parent = e.target.parentElement
+
+        if(parent.className === 'checkBtn') parent.setAttribute('class', 'checkBtnCompleted')
+        else parent.setAttribute('class', 'checkBtn')
     }
 
     init()
