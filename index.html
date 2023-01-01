@@ -33,24 +33,31 @@
          type: click
          listener: add()
          */
-        document.querySelector('.addContainer').addEventListener('click', add)
+        // document.querySelector('.addContainer').addEventListener('click', add)
+        $('.addContainer').click(add)
         /**
          type: click
          listener: remove()
          */
-        document.querySelector('.clearAllBtn').addEventListener('click', removeAll)
+        // document.querySelector('.clearAllBtn').addEventListener('click', removeAll)
+        $('.clearAllBtn').click(removeAll)
         /**
          type: click
          listener: checkToDo()
          */
-        document.querySelector('.addList').addEventListener('click', clickedControl)
+        // document.querySelector('.addList').addEventListener('click', clickedControl)
+        $('.addList').click(clickedControl)
+    }
+
+    function test() {
+        return console.log('테스트')
     }
 
     function add() {
         // console.log('추가할거')
         // console.log('event::::', e.target.classList[0])
 
-        let model = document.querySelector('.modelValue')
+        let model = $('.modelValue')
         /**
          * 1. 값의 유무
          * 2. 객체의 존재 유무
@@ -59,10 +66,10 @@
         // if (model.value) alert(`입력값은 ${model.value} 입니다.`)
         // if (model.value) alert('입력값은' + model.value + '입니다.')
         // else alert(`값 입력해주세요`)
-        if (model.value) {
-            let target = document.querySelector('.addList');
-            target.innerHTML += `<li class="shadow"><span class="checkBtn"><i class="fas fa-check"></i></span><span class="innerText">${model.value}</span><span class="removeBtn">삭제</span></li>`
-            model.value = ''
+        if (model.val()) {
+            let target = $('.addList')
+            target.append(`<li class="shadow"><span class="checkBtn"><i class="fas fa-check"></i></span><span class="innerText">${model.val()}</span><span class="removeBtn">삭제</span></li>`)
+            model.val('')
         } else {
             alert(`값 입력해주세요`)
         }
@@ -81,8 +88,8 @@
     }
 
     function removeAll() {
-        let ul = document.querySelector('.addList')
-        ul.innerHTML = ''
+        let ul = $('.addList')
+        ul.html('')
         alert('삭제 완료');
 
     }
