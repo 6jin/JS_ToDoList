@@ -1,206 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>soJin-todo</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
 <body>
-    <div id="main-content" class="main-content">
-        <header>
-            <h1>Hello</h1>
-        </header>
-        <div class="inputBox shadow">
-            <input type="text" class="modelValue" id="model" placeholder="내용을 입력해주세요." /><span class="addContainer"><i class="fas fa-plus addBtn"></i></span>
-        </div>
 
-        <div class="sub-content">
-            <ul class="addList">
-
-            </ul>
-        </div>
-
-        <div class="clearAllContainer">
-            <span class="clearAllBtn">clear all</span>
-        </div>
-    </div>
 </body>
 <script>
-    function init() {
-        /**
-         target: .addBtn
-         type: click
-         listener: add()
-         */
-        document.querySelector('.addContainer').addEventListener('click', add)
-        /**
-         type: click
-         listener: remove()
-         */
-        document.querySelector('.clearAllBtn').addEventListener('click', removeAll)
-        /**
-         type: click
-         listener: checkToDo()
-         */
-        document.querySelector('.addList').addEventListener('click', clickedControl)
-    }
+    // 1. 변수이름: obj, key: name, value: 지운, key: age, value: 30 오브젝트를 만드시오.
+    // 모든 오브젝트(obj) 는 중괄호 {} 사용
+    // 배열은 대괄호 [] 사용
+    // obj = key: value, key: {}
+    // arr = {}, value 값 이던 상관없음
+    let obj = {name: '지운', age: 30};
 
-    function add() {
-        // console.log('추가할거')
-        // console.log('event::::', e.target.classList[0])
+    // 2. 변수이름: objInObj, key: 남자, value: 지운, age: 30, key: 여자, value: 소진, age: 30
+    // key는 숫자일 때만 ''로 감싸기(나머지는 감싸기 ㄴㄴ)
+    let objInObj = {
+                        M: {name: '지운', age: 30},
+                        W: {name: '소진', age: 30}
+                    };
+    objInObj.M.name;
+    objInObj.W.age;
 
-        let model = document.querySelector('.modelValue')
-        /**
-         * 1. 값의 유무
-         * 2. 객체의 존재 유무
-         * 3. 숫자 0
-         * */
-        // if (model.value) alert(`입력값은 ${model.value} 입니다.`)
-        // if (model.value) alert('입력값은' + model.value + '입니다.')
-        // else alert(`값 입력해주세요`)
-        if (model.value) {
-            let target = document.querySelector('.addList');
-            target.innerHTML += `<li class="shadow"><span class="checkBtn"><i class="fas fa-check"></i></span><span class="innerText">${model.value}</span><span class="removeBtn">삭제</span></li>`
-            model.value = ''
-        } else {
-            alert(`값 입력해주세요`)
+
+    // 2. 변수이름 = obj2
+    // key 값이 M의 value에는 key가 name, age, job이 있고
+    // name의 value는 '지운'
+    // age의 value는 '30'이다
+    // job의 value는 arr 이며, 순서대로
+    // 'developer'와 'cook'와 'barista' 와 key 값이 sub인 value 'artist'가 들어간다
+
+    let obj2 = {
+                M: {name: '지운',
+                    age: '30',
+                    job: ['developer', 'cook', 'barista', {sub: 'artist'}]
+                    }
+                };
+    console.log('name >> ', obj2.M.name)
+    console.log('age >> ', obj2.M.age)
+    console.log('developer >> ', obj2.M.job[0])
+    console.log('cook >> ', obj2.M.job[1])
+    console.log('barista >> ', obj2.M.job[2])
+    console.log('artist >> ', obj2.M.job[3].sub)
+
+
+
+    let arr = [
+        {
+            M: {
+                name: '지운',
+                age: '30',
+                job: ['developer', 'cook', 'barista', {sub: 'artist'}]
+            }
+        },
+    ]
+
+    console.log('======================================');
+    for(let a = 0; a < arr.length; a++) {
+        console.log(arr[a].M.name);
+        console.log(arr[a].M.age);
+
+        if(arr[a].M.job.length > 0) {
+            for(let b = 0; b < arr[a].M.job.length; b++) {
+                // if (b >= 3)
+                if(typeof arr[a].M.job[b] === 'object') {
+                    console.log(arr[a].M.job[b].sub);
+                } else {
+                    console.log(arr[a].M.job[b]);
+                }
+            }
         }
-    }
-
-    function remove(e) {
-        console.log('삭제할거')
-        console.log('event::::', e.target)
-        console.log('event::::', e.target.parentElement)
-
-        let remove = e.target.parentElement;
-        let parent = remove.parentElement;
-        parent.removeChild(remove)
-        alert('삭제되엇슴니다')
 
     }
+    console.log('======================================');
 
-    function removeAll() {
-        let ul = document.querySelector('.addList')
-        ul.innerHTML = ''
-        alert('삭제 완료');
+    // arr[0].M.name;
+    // arr[0].M.age;
+    // arr[0].M.job[0];
+    // arr[0].M.job[1];
+    // arr[0].M.job[2];
+    // arr[0].M.job[3].sub;
+    // arr[1];
+    // arr[2];
+    // arr[3][0].M.name;
+    // arr[3][0].M.age;
+    // arr[3][0].M.job[0];
+    // arr[3][0].M.job[1];
+    // arr[3][0].M.job[2];
+    // arr[3][0].M.job[3].sub;
 
-    }
+//    Object 객체 삭제 delete
 
-    function clickedControl(e) {
-        console.log('e >>>>>>>>>>>>>', e.target.className)
-        if(e.target.className === 'fas fa-check') {
-            checkToDo(e);
-        } else if(e.target.className === 'removeBtn') {
-            remove(e);
-        }
-    }
+    let arr2 = [
+        {
+            M: {
+                name: '지운',
+                age: '30',
+                job: ['developer', 'cook', 'barista', {sub: 'artist'}]
+            }
+        },
+        [
+            {
+                M: {
+                    name: '지운',
+                    age: '30',
+                    job: ['developer', 'cook', 'barista', {sub: 'artist'}]
+                }
+            }
+        ]
+    ]
+    // let arr2Info;
+    // for(let a = 0; a < arr2.length; a++) {
+    //     arr2Info = arr2[a].M
+    //     for(let b = 0; b < arr2Info.job.length; b++) {
+    //
+    //     }
+    // }
 
-    function checkToDo(e) {
-        console.log('e>>>>>>>>>>>>>>>>', e.target.parentElement.className)
-        if(e.target.parentElement.className === 'checkBtn') e.target.parentElement.setAttribute('class', 'checkBtnCompleted')
-        else e.target.parentElement.setAttribute('class', 'checkBtn')
-    }
-
-    init()
 </script>
-<style>
-    h1 {
-        color: #2F3B52;
-        font-weight: 900;
-        margin: 2.5rem 0 1.5rem;
-    }
-    body {
-        text-align: center;
-        background-color: #F6F6F6;
-    }
-    input {
-        border-style: groove;
-        width: 50%;
-    }
-    button {
-        border-style: groove;
-    }
-    .shadow {
-        box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
-    }
-
-
-    input:focus {
-        outline: none;
-    }
-    .inputBox {
-        background-color: white;
-        height: 50px;
-        width: 50%;
-        margin: 0 auto;
-        line-height: 50px;
-        border-radius: 5px;
-    }
-    .inputBox input {
-        border-style: none;
-        font-size: 0.9rem;
-    }
-    .addContainer {
-        float: right;
-        background: linear-gradient(to right, #6478FB, #8763FB);
-        display: block;
-        width: 3rem;
-        border-radius: 0 5px 5px 0;
-    }
-    .addBtn {
-        color: white;
-        vertical-align: middle;
-    }
-
-
-    .clearAllContainer {
-        width: 8.5rem;
-        height: 50px;
-        line-height: 50px;
-        background-color: white;
-        border-radius: 5px;
-        margin: 0 auto;
-    }
-    .clearAllBtn {
-        margin-top: 10px;
-        color: #e20303;
-        display: block;
-    }
-
-
-    ul {
-        list-style-type: none;
-        width: 50%;
-        padding-left: 0px;
-        margin: 0 auto;
-        text-align: left;
-    }
-    li {
-        display: flex;
-        min-height: 50px;
-        height: 50px;
-        line-height: 50px;
-        margin: 0.5rem 0;
-        padding: 0 0.9rem;
-        background: white;
-        border-radius: 5px;
-    }
-    .checkBtn {
-        line-height: 45px;
-        color: limegreen;
-        margin-right: 5px;
-    }
-    .checkBtnCompleted {
-        color: #b3adad;
-    }
-    .textCompleted {
-        text-decoration: line-through;
-        color: #b3adad;
-    }
-    .removeBtn {
-        margin-left: auto;
-        color: #de4343;
-    }
-</style>
 </html>
